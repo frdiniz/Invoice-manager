@@ -1,0 +1,32 @@
+{
+  "name": "invoice-manager",
+  "version": "1.0.0",
+  "description": "Tool import html invoice from bradesco cards, select desired items and export .csv",
+  "main": "assets/main.js",
+  "dependencies": {
+    "babel-preset-env": "^1.6.0",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.5.1"
+  },
+  "scripts": {
+    "build": "webpack --progress --colors",
+    "dev": "webpack-dev-server",
+    "dist": "webpack -p --progress --colors",
+    "watch": "webpack --watch --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frdiniz/Invoice-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frdiniz/Invoice-manager/issues"
+  },
+  "homepage": "https://github.com/frdiniz/Invoice-manager#readme"
+}
