@@ -9,14 +9,36 @@ function handleFile(event) {
 
     reader.onload = (function(file) {
         return function (e) {
-            const span = document.createElement('span');
-            span.innerHTML = ['<iframe class="hide" src="',
-                e.target.result,
-                '"/>'].join('');
-            document.getElementById('invoice').insertBefore(span, null);
+            // read and render
+            $('#content').load(e.target.result);
         };
     })(file);
     reader.readAsDataURL(file);
+
 }
 
-export { handleFile };
+function handleInvoiceHtml(){
+    const data = document.getElementsByClassName('rowNormal');
+
+    let newTable = [];
+
+    for (let row of data) {
+
+        let transaction = [];
+        let transactionData = [];
+
+        for ( let currentChild of row.children ){
+            transactionData.push(currentChild.innerText);
+        }
+
+        transaction.push(transactionData);
+        newTable.push(transaction);
+    }
+    console.log(newTable);
+}
+
+function tableFilling(tableData) {
+    console.log(tableData);
+}
+
+export { handleFile, handleInvoiceHtml };
