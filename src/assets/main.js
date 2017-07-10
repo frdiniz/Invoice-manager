@@ -15,8 +15,7 @@ $('#read-html').click( () => {
         if ($("input.flat")[0]) {
             $(document).ready(function () {
                 $('input.flat').iCheck({
-                    checkboxClass: 'icheckbox_flat-green',
-                    radioClass: 'iradio_flat-green'
+                    checkboxClass: 'icheckbox_flat-green'
                 });
             });
         }
@@ -24,17 +23,6 @@ $('#read-html').click( () => {
 
     // Table
     let checkState = '';
-
-    $('table input').on('ifChecked', function () {
-        checkState = '';
-        $(this).parent().parent().parent().addClass('selected');
-        countChecked();
-    });
-    $('table input').on('ifUnchecked', function () {
-        checkState = '';
-        $(this).parent().parent().parent().removeClass('selected');
-        countChecked();
-    });
 
     $('.bulk_action input').on('ifChecked', function () {
         checkState = '';
@@ -64,11 +52,18 @@ $('#read-html').click( () => {
         }
 
         let checkCount = $(".bulk_action input[name='table_records']:checked").length;
+        let totalCount = 0;
+
+        for ( let i = 0; i <= checkCount-1 ; i++) {
+            let dat = $(".bulk_action input[name='table_records']:checked")[i].closest("tr").children[3].innerText;
+            totalCount += parseFloat( dat.replace(',','.') ,10 );
+        }
 
         if (checkCount) {
             $('.column-title').hide();
             $('.bulk-actions').show();
-            $('.action-cnt').html(checkCount + ' Records Selected');
+            $('.total-cnt').html(totalCount);
+            $('.action-cnt').html(checkCount + ' Transações selecionadas');
         } else {
             $('.column-title').show();
             $('.bulk-actions').hide();

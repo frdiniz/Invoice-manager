@@ -19,7 +19,7 @@ function handleFile(event) {
 function handleInvoiceHtml(){
 
     const html = $('.box-expansivel').html();
-    
+
     $('#insert-extraction').append(html);
     $( '#insert-html' ).remove();
 
@@ -39,6 +39,11 @@ function handleInvoiceHtml(){
         transaction.push(transactionData);
         newTable.push(transaction);
     }
+
+    $('#init-input').remove();
+    $('#input-container').append( ()=> {
+        return `<a onclick='location.reload()'>Nova fatura</a>`;
+    });
     tableFilling(newTable);
 }
 
@@ -51,12 +56,11 @@ function tableFilling(tableData) {
                 <th>
                     <input type='checkbox' id='check-all' class='flat'>
                 </th>
-                <th class='column-title'>Date </th>
-                <th class='column-title'>Transaction </th>
-                <th class='column-title'>US$ </th>
+                <th class='column-title'>DATA </th>
+                <th class='column-title'>TRANSAÇÃO </th>
                 <th class='column-title last'>R$ </th>
                 <th class='bulk-actions' colspan='7'>
-                    <a class='antoo' style='color:#fff; font-weight:500;'>Bulk Actions ( <span class='action-cnt'> </span> ) <i class='fa fa-chevron-down'></i></a>
+                    <a class='antoo' style='color:#fff; font-weight:500;'>Total: R$ <span class='total-cnt'> </span>  ( <span class='action-cnt'> </span> ) <i class='fa fa-chevron-down'></i></a>
                 </th>
                 </tr>
             </thead>
@@ -73,7 +77,6 @@ function tableFilling(tableData) {
                         <td class='a-center '> <input type='checkbox' class='flat' name='table_records'> </td>
                         <td class=''> ${row[0][0]} </td>
                         <td class=''> ${row[0][1]} </td>
-                        <td class=''> ${row[0][2]} </td>
                         <td class=''> ${row[0][3]} </td>
                     </tr>`;
            }
