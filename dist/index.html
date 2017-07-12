@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice Manager</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <style>
+        .hide {
+            display: none;
+        }
+
+        table.tile h3,
+        table.tile h4,
+        table.tile span {
+            font-weight: bold;
+            vertical-align: middle !important
+        }
+        table.tile th,
+        table.tile td {
+            text-align: center
+        }
+        table.tile th {
+            border-bottom: 1px solid #E6ECEE
+        }
+        table.tile td {
+            padding: 5px 0
+        }
+        table.tile td ul {
+            text-align: left;
+            padding-left: 0
+        }
+        table.tile td ul li {
+            list-style: none;
+            width: 100%
+        }
+        table.tile td ul li a {
+            width: 100%
+        }
+        table.tile td ul li a big {
+            right: 0;
+            float: right;
+            margin-right: 13px
+        }
+        table.tile_info {
+            width: 100%
+        }
+        table.tile_info td {
+            text-align: left;
+            padding: 1px;
+            font-size: 15px
+        }
+        table.tile_info td p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+            line-height: 28px
+        }
+        table.tile_info td i {
+            margin-right: 8px;
+            font-size: 17px;
+            float: left;
+            width: 18px;
+            line-height: 28px
+        }
+        table.tile_info td:first-child {
+            width: 83%
+        }
+        td span {
+            line-height: 28px
+        }
+        .sidebar-widget {
+            overflow: hidden
+        }
+        .error-number {
+            font-size: 90px;
+            line-height: 90px;
+            margin: 20px 0
+        }
+        .col-middle {
+            margin-top: 5%
+        }
+        .mid_center {
+            width: 370px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 10px 20px
+        }
+        h3.degrees {
+            font-size: 22px;
+            font-weight: 400;
+            text-align: center
+        }
+        .degrees:after {
+            content: "o";
+            position: relative;
+            top: -12px;
+            font-size: 13px;
+            font-weight: 300
+        }
+        .daily-weather .day {
+            font-size: 14px;
+            border-top: 2px solid rgba(115, 135, 156, 0.36);
+            text-align: center;
+            border-bottom: 2px solid rgba(115, 135, 156, 0.36);
+            padding: 5px 0
+        }
+        .weather-days .col-sm-2 {
+            overflow: hidden;
+            width: 16.66666667%
+        }
+        .weather .row {
+            margin-bottom: 0
+        }
+        .bulk-actions {
+            display: none
+        }
+        table.countries_list {
+            width: 100%
+        }
+        table.countries_list td {
+            padding: 0 10px;
+            line-height: 30px;
+            border-top: 1px solid #eeeeee
+        }
+        .dataTables_paginate a {
+            padding: 6px 9px !important;
+            background: #ddd !important;
+            border-color: #ddd !important
+        }
+        .paging_full_numbers a.paginate_active {
+            background-color: rgba(38, 185, 154, 0.59) !important;
+            border-color: rgba(38, 185, 154, 0.59) !important
+        }
+        button.DTTT_button,
+        div.DTTT_button,
+        a.DTTT_button {
+            border: 1px solid #E7E7E7 !important;
+            background: #E7E7E7 !important;
+            box-shadow: none !important
+        }
+        table.jambo_table {
+            border: 1px solid rgba(221, 221, 221, 0.78)
+        }
+        table.jambo_table thead {
+            background: rgba(52, 73, 94, 0.94);
+            color: #ECF0F1
+        }
+        table.jambo_table tbody tr:hover td {
+            background: rgba(38, 185, 154, 0.07);
+            border-top: 1px solid rgba(38, 185, 154, 0.11);
+            border-bottom: 1px solid rgba(38, 185, 154, 0.11)
+        }
+        table.jambo_table tbody tr.selected {
+            background: rgba(38, 185, 154, 0.16)
+        }
+        table.jambo_table tbody tr.selected td {
+            border-top: 1px solid rgba(38, 185, 154, 0.4);
+            border-bottom: 1px solid rgba(38, 185, 154, 0.4)
+        }
+        .dataTables_paginate a {
+            background: #ff0000
+        }
+        .dataTables_wrapper {
+            position: relative;
+            clear: both;
+            zoom: 1
+        }
+        .dataTables_processing {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 30px;
+            margin-left: -125px;
+            margin-top: -15px;
+            padding: 14px 0 2px 0;
+            border: 1px solid #ddd;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            background-color: white
+        }
+        .dataTables_length {
+            width: 40%;
+            float: left
+        }
+        .dataTables_filter {
+            width: 50%;
+            float: right;
+            text-align: right
+        }
+        .dataTables_info {
+            width: 60%;
+            float: left
+        }
+        .dataTables_paginate {
+            float: right;
+            text-align: right
+        }
+        table.dataTable th.focus,
+        table.dataTable td.focus {
+            outline: 2px solid #1ABB9C !important;
+            outline-offset: -1px
+        }
+        table.display {
+            margin: 0 auto;
+            clear: both;
+            width: 100%
+        }
+        table.display thead th {
+            padding: 8px 18px 8px 10px;
+            border-bottom: 1px solid black;
+            font-weight: bold;
+            cursor: pointer
+        }
+        table.display tfoot th {
+            padding: 3px 18px 3px 10px;
+            border-top: 1px solid black;
+            font-weight: bold
+        }
+        table.display tr.heading2 td {
+            border-bottom: 1px solid #aaa
+        }
+        table.display td {
+            padding: 3px 10px
+        }
+        table.display td.center {
+            text-align: center
+        }
+        table.display thead th:active,
+        table.display thead td:active {
+            outline: none
+        }
+        .dataTables_scroll {
+            clear: both
+        }
+        .dataTables_scrollBody {
+            *margin-top: -1px;
+            -webkit-overflow-scrolling: touch
+        }
+        .top .dataTables_info {
+            float: none
+        }
+        .clear {
+            clear: both
+        }
+        .dataTables_empty {
+            text-align: center
+        }
+        tfoot input {
+            margin: 0.5em 0;
+            width: 100%;
+            color: #444
+        }
+        tfoot input.search_init {
+            color: #999
+        }
+        td.group {
+            background-color: #d1cfd0;
+            border-bottom: 2px solid #A19B9E;
+            border-top: 2px solid #A19B9E
+        }
+        td.details {
+            background-color: #d1cfd0;
+            border: 2px solid #A19B9E
+        }
+        .example_alt_pagination div.dataTables_info {
+            width: 40%
+        }
+        .paging_full_numbers {
+            width: 400px;
+            height: 22px;
+            line-height: 22px
+        }
+        .paging_full_numbers a:active {
+            outline: none
+        }
+        .paging_full_numbers a:hover {
+            text-decoration: none
+        }
+        .paging_full_numbers a.paginate_button,
+        .paging_full_numbers a.paginate_active {
+            border: 1px solid #aaa;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            padding: 2px 5px;
+            margin: 0 3px;
+            cursor: pointer
+        }
+        .paging_full_numbers a.paginate_button {
+            background-color: #ddd
+        }
+        .paging_full_numbers a.paginate_button:hover {
+            background-color: #ccc;
+            text-decoration: none !important
+        }
+        .paging_full_numbers a.paginate_active {
+            background-color: #99B3FF
+        }
+        table.display tr.even.row_selected td {
+            background-color: #B0BED9
+        }
+        table.display tr.odd.row_selected td {
+            background-color: #9FAFD1
+        }
+
+        /* CSS3 Checkbox */
+        /*
+        .checkbox-input { display:block;position:relative; }
+        .checkbox-input:before { display:block;content:"";position:absolute;top:2px;left:0;height:20px;width:20px;background:red;border-radius:3px; }
+
+
+         #input + label:after {
+            content: 'click my input';
+            color: blue;
+          }
+
+          #input:focus + label:after {
+            content: 'not valid yet';
+            color: blue;
+          }
+
+          #input:valid + label:after {
+            content: 'looks good';
+            color: red;
+          }
+
+        /* CSS3 Checkbox - end */
+        /*
+
+        /*
+        .checkbox 																										{ display: block;position:relative;cursor:pointer; }
+        .checkbox input 																								{ position:absolute;z-index:-1;opacity:0;left:0;top:0; }
+        .checkbox div 																									{ position:absolute;top:2px;left:0;height:20px;width:20px;background:#e6e6e6;border-radius:3px; }
+        .checkbox input:checked ~ div 																			{ background: #1ABC9C; }
+        .checkbox:hover input:not([disabled]):checked ~ div,
+        .checkbox input:checked:focus ~ div 																	{ background: #1ABC9C; }
+        .checkbox input:disabled ~ div 																			{ background: #1ABC9C;opacity: 0.6;pointer-events: none; }
+        .checkbox div:after 																							{ content: '';position: absolute;display: none; }
+        .checkbox input:checked ~ div:after 																	{ display: block; }
+        .checkbox-wp div:after 																					{ left: 7px;top: 3px;width: 7px;height: 11px;border: solid #fff;border-width: 0 2px 2px 0;transform: rotate(40deg); }
+        .checkbox-wp input:disabled ~ div:after 																{ border-color: #F2F2F2; }
+
+
+        .checkbox-radio div 																							{ border-radius: 50%; }
+        .checkbox-radio div:after 																					{ left: 7px;top: 7px;height: 6px;width: 6px;border-radius: 50%;background: #fff; }
+        .checkbox-radio input:disabled ~ div:after 															{ background: #F2F2F2; }
+
+
+        .checkbox, .radio { margin-top:-3px; }
+
+        table thead .checkbox { margin-top:-7px;margin-top:-21px; }
+        table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
+        */
+    </style>
+</head>
+<body>
+    <div class="col-md-12">
+        <div id="input-container">
+            <div id="init-input">
+                <input type="file" id="invoice">
+                <button type="button" id="read-html">Obter Dados</button>
+            </div>
+        </div>
+    </div>
+    <div class="hide" id="content">
+        <div id="insert-html"></div>
+        <div id="insert-extraction"></div>
+    </div>
+    <div class="col-md-8">
+        <div class="x_content">
+            <div class="table-responsive" id="insert-table">
+            </div>
+        </div>
+    </div>
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script></body>
+</html>
