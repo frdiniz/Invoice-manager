@@ -28,7 +28,7 @@ module.exports = {
     output: { filename: 'js/[name].js', path: dist_path },
 
     entry: {
-        main: './assets/main.js'
+        main: './assets/controller.js'
     },
 
     plugins: [
