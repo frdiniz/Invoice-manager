@@ -1,15 +1,17 @@
 /**
  * Created by hediniz on 7/7/17.
  */
-import * as core from './core.es6';
+import * as model from './model.es6';
 
+// handle file
 $('#invoice').change( (event) => {
-    return core.handleFile(event);
+    return model.handleFile(event);
 });
 
+// iCheck and Table controller
 $('#read-html').click( () => {
 
-    core.handleInvoiceHtml();
+    model.handleInvoiceHtml();
     // iCheck
     $(document).ready(function() {
         if ($("input.flat")[0]) {
@@ -27,23 +29,24 @@ $('#read-html').click( () => {
     $('.bulk_action input').on('ifChecked', function () {
         checkState = '';
         $(this).parent().parent().parent().addClass('selected');
-        core.countChecked(checkState);
+        model.countChecked(checkState);
     });
     $('.bulk_action input').on('ifUnchecked', function () {
         checkState = '';
         $(this).parent().parent().parent().removeClass('selected');
-        core.countChecked(checkState);
+        model.countChecked(checkState);
     });
     $('.bulk_action input#check-all').on('ifChecked', function () {
         checkState = 'all';
-        core.countChecked(checkState);
+        model.countChecked(checkState);
     });
     $('.bulk_action input#check-all').on('ifUnchecked', function () {
         checkState = 'none';
-        core.countChecked(checkState);
+        model.countChecked(checkState);
     });
 
+    // Download button action
     $('#download').click( () => {
-        core.dataToCSV();
+        model.dataToCSV();
     });
 });
