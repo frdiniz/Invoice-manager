@@ -1,6 +1,10 @@
 /**
  * Created by hediniz on 7/7/17.
  */
+const DATE = 1;
+const DESCRIPTION = 2;
+const REAL_VALUE = 3;
+
 
 function handleFile(event) {
     const file = event.target.files[0];
@@ -67,7 +71,8 @@ function tableFilling(tableData) {
             <tbody id='insert-row'>
     
             </tbody>
-        </table>`;
+        </table>
+        <button id='download'>Download CSV</button>`;
     });
 
     for ( let row of tableData ) {
@@ -84,4 +89,75 @@ function tableFilling(tableData) {
     }
 }
 
-export { handleFile, handleInvoiceHtml };
+function countChecked(checkState) {
+    if (checkState === 'all') {
+        $(".bulk_action input[name='table_records']").iCheck('check');
+    }
+    if (checkState === 'none') {
+        $(".bulk_action input[name='table_records']").iCheck('uncheck');
+    }
+
+    const checkCount = $(".bulk_action input[name='table_records']:checked").length;
+    let totalCount = 0;
+
+    for ( let i = 0; i <= checkCount-1 ; i++ ) {
+        let dat = $(".bulk_action input[name='table_records']:checked")[i].closest("tr").children[REAL_VALUE].innerText;
+        totalCount += parseFloat( dat.replace(',','.') ,10 );
+    }
+
+    if (checkCount) {
+        $('.column-title').hide();
+        $('.bulk-actions').show();
+        $('.total-cnt').html(totalCount);
+        $('.action-cnt').html(`${checkCount} Transações selecionadas`);
+    } else {
+        $('.column-title').show();
+        $('.bulk-actions').hide();
+    }
+}
+
+function dataToCSV() {
+
+    const checkCount = $(".bulk_action input[name='table_records']:checked").length;
+
+    let csv = 'Date,Description,Amount\r\n';
+
+    let date = '';
+    let description = '';
+    let amount = 0;
+
+    for ( let i = 0; i <= checkCount-1 ; i++ ) {
+        date = $(".bulk_action input[name='table_records']:checked")[i].closest("tr").children[DATE].innerText;
+        description = $(".bulk_action input[name='table_records']:checked")[i].closest("tr").children[DESCRIPTION].innerText;
+        amount = $(".bulk_action input[name='table_records']:checked")[i].closest("tr").children[REAL_VALUE].innerText;
+
+        date += `/2017`;
+        amount = parseFloat(amount.replace(',','.') ,10);
+        // fix \r\n on es6 string template
+        csv += '\r\n'+`"${date}","${description}","${amount}",`;
+
+    }
+    console.log(csv);
+    // get Date
+    const now = new Date();
+    // Generate a file name
+    const fileName = `Invoice ${now.getDay()}-${now.getMonth()}-${now.getFullYear()}`;
+
+    // Initialize file format
+    const uri = 'data:text/csv;charset=utf-8,' + escape(csv);
+
+    // generate a temp <a /> tag
+    const link = document.createElement('a');
+    link.href = uri;
+
+    // set hidden
+    link.style = 'visibility:hidden';
+    link.download = `${fileName}.csv`;
+
+    // append the anchor tag and remove automatic
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+export { handleFile, handleInvoiceHtml, countChecked, dataToCSV };
