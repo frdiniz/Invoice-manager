@@ -17,7 +17,7 @@ $('#read-html').click( () => {
         if ($("input.flat")[0]) {
             $(document).ready(function () {
                 $('input.flat').iCheck({
-                    checkboxClass: 'icheckbox_flat-green'
+                    checkboxClass: 'icheckbox_flat-blue',
                 });
             });
         }

@@ -52,10 +52,13 @@ function handleInvoiceHtml(){
         transaction.push(transactionData);
         newTable.push(transaction);
     }
-    // remove upload input
-    $('#init-input').remove();
+    // disable upload input
+    $('.buttonText').closest('label').attr('disabled','true');
+    $('#read-html').attr('disabled','disabled');
+    // show menu and table
+    $('#char').removeClass('hide');
     // add link for new invoice
-    $('#input-container').append( ()=> {
+    $('#menu').append( ()=> {
         return `<a onclick='location.reload()'>Nova fatura</a>`;
     });
     // call the render function
@@ -86,7 +89,7 @@ function tableFilling(tableData) {
     
             </tbody>
         </table>
-        <button id='download'>Download CSV</button>`;
+        <button id='download' class='btn btn-primary'>Download .CSV</button>`;
     });
 
     for ( let row of tableData ) {
